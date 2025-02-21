@@ -1,0 +1,20 @@
+import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SignInSide from './pages/SignInSide'
+import SignUp from './pages/SignUp';
+import Dashboard from './pages/Dashboard';
+
+function App() {
+
+  return (
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<SignInSide />} />
+      <Route path="/register" element={<SignUp />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+    </Routes>
+  </BrowserRouter>
+  )
+}
+
+export default App
