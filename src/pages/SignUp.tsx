@@ -1,10 +1,10 @@
-import React from 'react'
+
 import CssBaseline from '@mui/material/CssBaseline';
 import Stack from '@mui/material/Stack';
 import AppTheme from '../theme/AppTheme';
 import ColorModeSelect from '../theme/ColorModeSelect';
 import SignUpCard from '../components/SignUpCard';
-import Content from '../components/Content';
+
 
 const SignUp = (props: { disableCustomTheme?: boolean }) => {
   return (
