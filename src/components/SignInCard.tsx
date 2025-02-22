@@ -12,10 +12,11 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword';
-import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
+import { GoogleIcon, FacebookIcon} from './CustomIcons';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -63,12 +64,14 @@ export default function SignInCard() {
       password: data.get('password'),
     })
     .then((response) => {
-      console.log(response.data);
+      
+      localStorage.setItem('token' , response.data.data.token);
       dataRedirect('/dashboard');
     })
     .catch((error) => {
-      console.error(error.response.data);
-      alert(error.response.data.message);
+      // alert(error.response.data.message);
+      toast.error(error.response.data.message);
+      localStorage.removeItem('token');
     });
   };
 
@@ -102,7 +105,6 @@ export default function SignInCard() {
   return (
     <Card variant="outlined">
       <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-        <SitemarkIcon />
       </Box>
       <Typography
         component="h1"
