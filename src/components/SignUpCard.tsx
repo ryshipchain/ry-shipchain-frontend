@@ -12,10 +12,12 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword';
-import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
+import { GoogleIcon, FacebookIcon } from './CustomIcons';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -37,7 +39,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
 
 export default function SignUpCard() {
 
-  const dataRedirect =  useNavigate();
+  const dataRedirect = useNavigate();
 
   const [fnameError, setFnameError] = React.useState(false);
   const [fnameErrorMessage, setFnameErrorMessage] = React.useState('');
@@ -58,25 +60,40 @@ export default function SignUpCard() {
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    console.log('submitted.....');
-    
+
     event.preventDefault();
-    console.log('submitted');
-    
-    if ( fnameError || lnameError || emailError || passwordError) {   
+
+
+    if (fnameError || lnameError || emailError || passwordError) {
       return;
     }
     const data = new FormData(event.currentTarget);
-     const response = await axios.post('https://dev-ry-shipchain-backend.onrender.com/api/auth/register', {
+     axios.post('https://dev-ry-shipchain-backend.onrender.com/api/auth/register', {
       firstName: data.get('fname'),
       lastName: data.get('lname'),
       email: data.get('email'),
       password: data.get('password'),
       role: 'shipper'
+    })
+    .then((response) => {
+      console.log(response.data);
+      dataRedirect('/');
+    })
+    .catch((error) => {
+      console.error(error.response.data);
+      toast.error(error.response.data.message);
+      const fname = document.getElementById('fname') as HTMLInputElement;
+      const lname = document.getElementById('lname') as HTMLInputElement;
+      const email = document.getElementById('email') as HTMLInputElement;
+      const password = document.getElementById('password') as HTMLInputElement;
+      fname.value = '';
+      lname.value = '';
+      email.value = '';
+      password.value = '';
     });
-    console.log(response.data);
-    dataRedirect('/')
+    
   
+
   };
 
   const validateInputs = () => {
@@ -129,7 +146,6 @@ export default function SignUpCard() {
   return (
     <Card variant="outlined">
       <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-        <SitemarkIcon />
       </Box>
       <Typography
         component="h1"
