@@ -4,7 +4,6 @@ import SignInSide from './pages/SignInSide'
 import SignUp from './pages/SignUp';
 
 import Dashboard from './pages/Dashboard';
-import DashboardPage from './pages/DashboardPage';
 
 
 function App() {

@@ -17,6 +17,7 @@
     "@mui/styled-engine-sc": "^6.4.3",
     "@mui/x-charts": "^7.27.0",
     "@mui/x-data-grid": "^7.27.0",
+    "@mui/x-data-grid-pro": "^7.27.0",
     "@mui/x-date-pickers": "^7.27.0",
     "@mui/x-date-pickers-pro": "^7.27.0",
     "@mui/x-tree-view": "^7.26.0",
